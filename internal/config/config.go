@@ -6,12 +6,12 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type Config struct{
+type Config struct{ // our configurations
 	Port string
 	Env string
 }
 
-func MustLoad() Config {
+func MustLoad() Config { // Mustload means it should either work or kill the program
 	godotenv.Load()
 
 	port:= os.Getenv("PORT")

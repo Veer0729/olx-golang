@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/Veer0729/olx_golang/internal/config"
+	"github.com/Veer0729/olx_golang/internal/handlers"
 )
 
 func main(){
@@ -19,17 +20,7 @@ func main(){
 	mux:= http.NewServeMux() // Our private router
 
 	// 2. Register routes (HandleFunc)
-	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request){
-		// r tells you what the client wants, w is how you give them the answer.
-
-		w.Header().Set("Content-Type", "application/json") 
-		// w.Header() gives you a map of response headers. You're adding one header that tells the client: "Don't try to parse this as HTML or plain text — it's JSON."
-
-		w.WriteHeader(http.StatusOK)
-		// http.StatusOK is just a named constant for the number 200. You're explicitly saying "this request succeeded."
-
-		w.Write([]byte(`{"status": "ok"}`))
-	})
+	mux.HandleFunc("GET /healthz", handlers.Health)
 	  
 	// 3. Configure server (http.Server{...})
 	srv:= http.Server{
