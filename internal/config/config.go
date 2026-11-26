@@ -9,6 +9,7 @@ import (
 type Config struct{ // our configurations
 	Port string
 	Env string
+	DatabaseUrl string
 }
 
 func MustLoad() Config { // Mustload means it should either work or kill the program
@@ -24,8 +25,14 @@ func MustLoad() Config { // Mustload means it should either work or kill the pro
 		panic("ENV is required")
 	}
 
+	dbUrl:= os.Getenv("DATABASE_URL")
+	if env == "" {
+		panic("DatabaseUrl is required")
+	}
+
 	return Config{
 		Port: port,
 		Env: env,
+		DatabaseUrl: dbUrl,
 	}
 }

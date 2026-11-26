@@ -7,14 +7,19 @@ import (
 	"time"
 
 	"github.com/Veer0729/olx_golang/internal/config"
+	"github.com/Veer0729/olx_golang/internal/db"
 	"github.com/Veer0729/olx_golang/internal/handlers"
 )
 
 func main(){
 
 	cfg:= config.MustLoad()
+	_, err := db.Connect(cfg.DatabaseUrl)
+	if err != nil {
+		log.Fatalf("main.db.connect: %v", err)
+	}
 
-
+	fmt.Println("Database Connected...")
 	fmt.Println("server is starting...")
 	// 1. Create router (mux)
 	mux:= http.NewServeMux() // Our private router
