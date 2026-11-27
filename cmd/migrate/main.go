@@ -20,7 +20,7 @@ func main(){
 
 	m, err := migrate.New(
         "file://migrations",
-        cfg.DatabaseUrl,
+        cfg.DatabaseUrl, // reads .env for DB url
 	)
 	if err != nil {
 		log.Fatalf("migration.new: %v", err)
@@ -35,7 +35,7 @@ func main(){
 
 	case "down":
 		fmt.Println("down called")
-		if err := m.Down(); err != nil {
+		if err := m.Steps(-1); err != nil { // m.Down() would erase all our data and go to the default state: NOT RECEMONDED for production
 			log.Fatalf("Error while down called: %v",err)
 		}
 	
